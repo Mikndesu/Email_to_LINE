@@ -22,6 +22,9 @@ load_dotenv(dotenv_path)
 CHANNEL_ACCESS_TOKEN = os.environ.get("CHANNEL_ACCESS_TOKEN")
 CHANNEL_SECRET = os.environ.get("CHANNEL_SECRET")
 
+
+app.logger.info(CHANNEL_SECRET)
+
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
 
@@ -43,7 +46,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-	line_bot_api.reply_message(
+    line_bot_api.reply_message(
        event.reply_token,
        TextSendMessage(text=event.message.text)
     )
