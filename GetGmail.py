@@ -26,6 +26,7 @@ class GMail:
             'Authorization' : 'Bearer ' + self.access_token,
         }
         res = requests.get('https://www.googleapis.com/gmail/v1/users/me/messages/', headers=headers)
+        print(res)
         messageIdsOrError = json.load(res)
         if "error" in messageIdsOrError == True:
             # generate new access_token if previous value is unavailable
@@ -36,11 +37,13 @@ class GMail:
                 'grant_type' : 'refresh_token'
             }
             response = requests.post('https://accounts.google.com/o/oauth2/token', data=data)
+            print(response)
             os.environ["ACCESS_TOKEN"] = response["access_token"]
             headers = {
                 'Authorization': 'Bearer ' + self.access_token,
             }
             resp = requests.get('https://www.googleapis.com/gmail/v1/users/me/messages/', headers=headers)
+            print(resp)
             messageIds = json.load(resp)
             return messageIds
         else:
