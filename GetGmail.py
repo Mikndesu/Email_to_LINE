@@ -16,7 +16,7 @@ class GMail:
 
     def get_email(self):
         messageIds=[]
-        mailsDetail = self.checkAccessTokenAvailable().json()
+        mailsDetail = self.checkAccessTokenAvailable()
         for id in mailsDetail["messages"]:
             messageIds.append(id)
         return messageIds
