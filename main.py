@@ -1,12 +1,12 @@
-from flask import Flask, request, abort
 import os
+import GetGmail
+from flask import Flask, request, abort
 from os.path import join, dirname
 from dotenv import load_dotenv
 
 from linebot import (
     LineBotApi, WebhookHandler
 )
-
 from linebot.exceptions import (
     InvalidSignatureError
 )
@@ -21,7 +21,6 @@ load_dotenv(dotenv_path)
 
 CHANNEL_ACCESS_TOKEN = os.environ.get("CHANNEL_ACCESS_TOKEN")
 CHANNEL_SECRET = os.environ.get("CHANNEL_SECRET")
-
 
 app.logger.info(CHANNEL_SECRET)
 
@@ -47,14 +46,19 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     if (event.message.text) == 'checkUpdate':
-        message = "Update"
+        gmail = GetGmail.GMail()
+        messageIds = gmail.get_email()
+        for id in messageIds:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text=id)
+            )
     else:
         message = event.message.text
-
-    line_bot_api.reply_message(
-       event.reply_token,
-       TextSendMessage(text=message)
-    )
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=message)
+        )
 
 
 if __name__ == "__main__":
