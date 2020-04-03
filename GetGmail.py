@@ -25,7 +25,8 @@ class GMail:
         headers = {
             'Authorization' : 'Bearer ' + self.access_token,
         }
-        messageIdsOrError = json.load(requests.get('https://www.googleapis.com/gmail/v1/users/me/messages/', headers=headers))
+        res = requests.get('https://www.googleapis.com/gmail/v1/users/me/messages/', headers=headers)
+        messageIdsOrError = json.load(res)
         if "error" in messageIdsOrError == True:
             # generate new access_token if previous value is unavailable
             data = {
@@ -39,7 +40,8 @@ class GMail:
             headers = {
                 'Authorization': 'Bearer ' + self.access_token,
             }
-            messageIds = json.load(requests.get('https://www.googleapis.com/gmail/v1/users/me/messages/', headers=headers))
+            resp = requests.get('https://www.googleapis.com/gmail/v1/users/me/messages/', headers=headers)
+            messageIds = json.load(resp)
             return messageIds
         else:
             return messageIdsOrError
