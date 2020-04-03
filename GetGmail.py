@@ -16,7 +16,7 @@ class GMail:
 
     def get_email(self):
         messageIds=[]
-        mailsDetail = json.load(self.checkAccessTokenAvailable())
+        mailsDetail = self.checkAccessTokenAvailable().json()
         for id in mailsDetail["messages"]:
             messageIds.append(id)
         return messageIds
@@ -27,7 +27,7 @@ class GMail:
         }
         res = requests.get('https://www.googleapis.com/gmail/v1/users/me/messages/', headers=headers)
         print(res)
-        messageIdsOrError = json.load(res)
+        messageIdsOrError = res.json()
         if "error" in messageIdsOrError == True:
             # generate new access_token if previous value is unavailable
             data = {
@@ -44,7 +44,7 @@ class GMail:
             }
             resp = requests.get('https://www.googleapis.com/gmail/v1/users/me/messages/', headers=headers)
             print(resp)
-            messageIds = json.load(resp)
+            messageIds = resp.json()
             return messageIds
         else:
             return messageIdsOrError
