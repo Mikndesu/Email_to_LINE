@@ -19,6 +19,7 @@ class GMail:
         mailsDetail = self.checkAccessTokenAvailable()
         for id in mailsDetail["messages"]:
             messageIds.append(id)
+        print(messageIds)
         return messageIds
 
     def checkAccessTokenAvailable(self):
@@ -48,3 +49,7 @@ class GMail:
         response = requests.post('https://accounts.google.com/o/oauth2/token', data=data).json()
         os.environ["ACCESS_TOKEN"] = response["access_token"]
         self.access_token = response["access_token"]
+
+if __name__ == "__main__":
+    g = GMail()
+    g.get_email()
