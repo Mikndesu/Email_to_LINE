@@ -47,13 +47,11 @@ def callback():
 def handle_message(event):
     if (event.message.text) == 'checkUpdate':
         gmail = GetGmail.GMail()
-        messageIds = gmail.get_email()
-        for id in messageIds:
-            message = id
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=message)
-            )
+        message = gmail.get_email()
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=message)
+        )
     else:
         message = event.message.text
         line_bot_api.reply_message(
