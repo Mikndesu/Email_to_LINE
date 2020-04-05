@@ -52,4 +52,5 @@ class GMail:
 
 if __name__ == "__main__":
     g = GMail()
-    g.get_email()
+    for id in g.get_email().json():
+        print(id)

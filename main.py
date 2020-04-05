@@ -49,9 +49,10 @@ def handle_message(event):
         gmail = GetGmail.GMail()
         messageIds = gmail.get_email()
         for id in messageIds:
+            message = id
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=messageIds[id])
+                TextSendMessage(text=message)
             )
     else:
         message = event.message.text
