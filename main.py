@@ -49,10 +49,9 @@ def handle_message(event):
         user_id = os.environ.get("MY_PERSONAL_LINE")
         gmail = GetGmail.GMail()
         message = gmail.get_email
-        mess_id = ''
         times = 0
         for(id) in message:
-            mess_is = id["id"]
+            mess_id = id["id"]
             if times == 0:
                 line_bot_api.reply_message(
                     event.reply_token,
@@ -60,7 +59,7 @@ def handle_message(event):
                 )
                 times += 1
             else:
-                line_bot_api.push_message(user_id, messages=mess_is)
+                line_bot_api.push_message(user_id, messages=mess_id)
     else:
         message = event.message.text
         line_bot_api.reply_message(
