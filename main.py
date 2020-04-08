@@ -46,7 +46,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     if (event.message.text) == 'checkUpdate':
-        user_id = os.environ.get["MY_PERSONAL_LINE"]
+        user_id = os.environ.get("MY_PERSONAL_LINE")
         gmail = GetGmail.GMail()
         message = gmail.get_email
         mess_id = ''
