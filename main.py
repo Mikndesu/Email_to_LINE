@@ -59,7 +59,7 @@ def handle_message(event):
                 )
                 times += 1
             else:
-                line_bot_api.push_message(user_id, messages=mess_id)
+                line_bot_api.push_message(user_id, messages=TextSendMessage(text=mess_id))
     else:
         message = event.message.text
         line_bot_api.reply_message(
