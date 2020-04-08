@@ -48,7 +48,7 @@ def handle_message(event):
     if (event.message.text) == 'checkUpdate':
         user_id = os.environ.get("MY_PERSONAL_LINE")
         gmail = GetGmail.GMail()
-        message = gmail.get_email
+        message = gmail.get_email()
         times = 0
         for(id) in message:
             mess_id = id["id"]
